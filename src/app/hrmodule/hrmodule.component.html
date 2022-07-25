@@ -1,3 +1,19 @@
+<header class="header-6">
+  <div class="branding">...</div>
+  <div class="header-nav">
+    <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
+      >Dashboard</a
+    >
+    <a routerLink="/app-login-creation" class="nav-link nav-text"
+      >Interactive Analytics</a
+    >
+  </div>
+  <div class="header-actions">
+    <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
+      <clr-icon shape="cog"></clr-icon>
+    </a>
+  </div>
+</header>
 <p><strong>REIMBURSEMENT DETAILS (HR MODULE)</strong></p>
 <clr-datagrid
   [(clrDgSelected)]="selected"
@@ -39,11 +55,6 @@
           <br />
           <button class="btn btn-primary">REJECT</button>
         </form>
-
-        <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-outline" (click)="isModalOpen = false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="isModalOpen = false">Update</button>
-        </div> -->
       </div>
     </clr-modal>
     <div class="btn-group">
@@ -109,42 +120,18 @@
           <br />
           <button class="btn btn-primary">CREATE</button>
         </form>
-
-        <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-outline" (click)="isModalOpen = false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="isModalOpen = false">Update</button>
-        </div> -->
       </div>
     </clr-modal>
   </clr-dg-action-bar>
-  <!-- <clr-dg-action-bar>
-        <a #download class="btn btn-sm btn-secondary" href=""
-          (click)="downloadUsers()" download="books.csv">EXPORT DATA</a> -->
-  <!-- <a #download class="btn btn-sm btn-secondary" href=""
-          (click)="downloadfilterUsers()" download="books.csv">EXPORT FILTERED</a> -->
-  <!-- </clr-dg-action-bar>  -->
 
   <clr-dg-column [clrDgField]="'empId'">EMP ID</clr-dg-column>
   <clr-dg-column [clrDgField]="'emailId'">EMAIL ID</clr-dg-column>
   <clr-dg-column [clrDgField]="'type'">TYPE</clr-dg-column>
   <clr-dg-column [clrDgField]="'attachment'">ATTACHMENT</clr-dg-column>
-  <clr-dg-column [clrDgField]="'status'"
-    >STATUS
-
-    <!-- <clr-dg-filter [clrDgFilter]="roleFilter">
-          <checkbox-list-filter #roleFilter [filterParamName]="'mode'" [items]= "roleFilterOptions"></checkbox-list-filter>
-        </clr-dg-filter> -->
-    <!-- <clr-dg-string-filter [clrDgStringFilter]="typeOrFilter" [clrFilterValue]="internal">
-
-        </clr-dg-string-filter> -->
-  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'status'">STATUS </clr-dg-column>
   <clr-dg-column [clrDgField]="'remarks'">REMARKS</clr-dg-column>
   <clr-dg-column [clrDgField]="'currentDateTime'">CREATE AT</clr-dg-column>
   <clr-dg-row *clrDgItems="let data of reimbursementdatas" [clrDgItem]="data">
-    <!-- <clr-dg-action-overflow>
-            <button class="action-item" (click)="deletePost(user.id)">Delete</button> 
-            <button class="action-item" (click)="editPost(user.id)">Edit</button> 
-        </clr-dg-action-overflow>   -->
     <clr-dg-cell>{{ data.empId }} </clr-dg-cell>
     <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
     <clr-dg-cell>{{ data.type }}</clr-dg-cell>
