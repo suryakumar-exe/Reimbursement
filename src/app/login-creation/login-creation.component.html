@@ -1,17 +1,179 @@
-<header class="header-6">
-  <div class="branding">...</div>
-  <div class="header-nav">
-    <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
-      >Dashboard</a
+<div *ngIf="email_session; else elseBlock">
+  <header class="header-6">
+    <div class="branding">...</div>
+    <div class="header-nav">
+      <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
+        >Reimbursement Details</a
+      >
+      <a routerLink="/app-login-creation" class="nav-link nav-text"
+        >Login Details</a
+      >
+      <a routerLink="/app-own-reimbursement" class="nav-link nav-text"
+        >My Reimbursements</a
+      >
+      <a (click)="logout()" class="nav-link nav-text">Logout</a>
+    </div>
+    <div class="header-actions">
+      <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
+        <clr-icon shape="cog"></clr-icon>
+      </a>
+    </div>
+  </header>
+  <p>login-creation works!</p>
+  <clr-datagrid
+    [(clrDgSelected)]="selected"
+    [clrDgRowSelection]="true"
+    (clrDgSelectedChange)="selectionChanged($event)"
+  >
+    <clr-dg-action-bar>
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary"
+          (click)="openModal_remarkupdate()"
+          *ngIf="selected.length == 1"
+        >
+          <clr-icon shape="pencil"></clr-icon> Change Password
+        </button>
+      </div>
+      <clr-modal [(clrModalOpen)]="isModalOpen_remarkupdate">
+        <h3 class="modal-title">REJECT REIMBURSEMENT</h3>
+        <div class="modal-body">
+          <form
+            #datas_create="ngForm"
+            clrForm
+            (ngSubmit)="editpassword(datas_create)"
+          >
+            <span class="clr-sr-only"
+              >Tabbing through form inputs will trigger validation messages to
+              be read aloud.</span
+            >
+            <clr-input-container>
+              <label>NEW PASSWORD</label>
+              <input
+                clrInput
+                type="text"
+                id="password"
+                name="password"
+                ngModel
+              />
+            </clr-input-container>
+
+            <br />
+            <button class="btn btn-primary">REJECT</button>
+          </form>
+        </div>
+      </clr-modal>
+      <div class="btn-group">
+        <clr-dropdown>
+          <button
+            type="button"
+            class="btn btn-sm btn-secondary"
+            clrDropdownTrigger
+          >
+            Export
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+          <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
+            <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadUsers()" download="books.csv" clrDropdownItem>Export All</a>
+                  <a  #filtered_download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filtered</a> -->
+            <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filterd</a> -->
+            <!-- <button type="button" (click)="onExportSelected()" [disabled]="selected.length === 0" clrDropdownItem>Export Selected Items</button> -->
+          </clr-dropdown-menu>
+        </clr-dropdown>
+      </div>
+      <button
+        type="button"
+        style="float: right"
+        class="btn btn-sm btn-secondary"
+        (click)="openModal_create()"
+      >
+        <clr-icon shape="pencil"></clr-icon> Create
+      </button>
+      <clr-modal [(clrModalOpen)]="isModalOpen_create">
+        <h3 class="modal-title">Create</h3>
+        <div class="modal-body">
+          <form
+            #datas_create="ngForm"
+            clrForm
+            (ngSubmit)="create(datas_create.value)"
+          >
+            <span class="clr-sr-only"
+              >Tabbing through form inputs will trigger validation messages to
+              be read aloud.</span
+            >
+            <clr-input-container>
+              <label>EMP ID</label>
+              <input clrInput type="text" id="empID" name="empID" ngModel />
+            </clr-input-container>
+            <clr-input-container>
+              <label>EMAIL ID</label>
+              <input clrInput type="text" id="emailId" name="emailId" ngModel />
+              <clr-control-error
+                >We need your last name for legal compliance</clr-control-error
+              >
+            </clr-input-container>
+            <clr-input-container>
+              <label>PASSWORD</label>
+              <input
+                clrInput
+                type="text"
+                id="password"
+                name="password"
+                ngModel
+              />
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>ROLE</label>
+              <input clrInput type="text" id="role" name="role" ngModel />
+            </clr-input-container>
+
+            <br />
+            <button class="btn btn-primary">CREATE</button>
+          </form>
+        </div>
+      </clr-modal>
+    </clr-dg-action-bar>
+
+    <clr-dg-column [clrDgField]="'empID'">EMP ID</clr-dg-column>
+    <clr-dg-column [clrDgField]="'emailId'">EMAIL ID</clr-dg-column>
+    <clr-dg-column [clrDgField]="'password'">PASSWORD</clr-dg-column>
+    <clr-dg-column [clrDgField]="'role'">ROLE</clr-dg-column>
+    <clr-dg-column [clrDgField]="'currentDateTime'"
+      >DATE AND TIME</clr-dg-column
     >
-    <a routerLink="/app-login-creation" class="nav-link nav-text"
-      >Interactive Analytics</a
-    >
-  </div>
-  <div class="header-actions">
-    <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
-      <clr-icon shape="cog"></clr-icon>
-    </a>
-  </div>
-</header>
-<p>login-creation works!</p>
+
+    <clr-dg-row *clrDgItems="let data of logindata" [clrDgItem]="data">
+      <clr-dg-cell>{{ data.empID }} </clr-dg-cell>
+      <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
+      <clr-dg-cell>{{ data.password }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.role }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.currentDateTime }}</clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[5, 10, 20, 50, 100]"
+          >Forms per page</clr-dg-page-size
+        >
+        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+        {{ pagination.totalItems }} Forms
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+  <span *ngFor="let user of selected">{{ user.id + " " }}</span>
+</div>
+<ng-template #elseBlock>
+  <header class="header-6">
+    <div class="branding">...</div>
+    <div class="header-nav">
+      You are Logged Out, Please
+      <a routerLink="" class="nav-link nav-text">Login</a>
+    </div>
+    <div class="header-actions">
+      <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
+        <clr-icon shape="cog"></clr-icon>
+      </a>
+    </div>
+  </header>
+</ng-template>

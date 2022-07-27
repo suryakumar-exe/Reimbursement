@@ -1,153 +1,180 @@
-<header class="header-6">
-  <div class="branding">...</div>
-  <div class="header-nav">
-    <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
-      >Dashboard</a
-    >
-    <a routerLink="/app-login-creation" class="nav-link nav-text"
-      >Interactive Analytics</a
-    >
-  </div>
-  <div class="header-actions">
-    <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
-      <clr-icon shape="cog"></clr-icon>
-    </a>
-  </div>
-</header>
-<p><strong>REIMBURSEMENT DETAILS (HR MODULE)</strong></p>
-<clr-datagrid
-  [(clrDgSelected)]="selected"
-  [clrDgRowSelection]="true"
-  (clrDgSelectedChange)="selectionChanged($event)"
->
-  <clr-dg-action-bar>
-    <div class="btn-group">
-      <button
-        type="button"
-        class="btn btn-sm btn-secondary"
-        (click)="approve()"
-        *ngIf="selected.length == 1"
+<div *ngIf="email_session; else elseBlock">
+  <header class="header-6">
+    <div class="branding">...</div>
+    <div class="header-nav">
+      <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
+        >Reimbursement Details</a
       >
-        <clr-icon shape="pencil"></clr-icon> Approve
-      </button>
-      <button
-        type="button"
-        class="btn btn-sm btn-danger"
-        (click)="openModal_remarkupdate()"
-        *ngIf="selected.length == 1"
+      <a routerLink="/app-login-creation" class="nav-link nav-text"
+        >Login Details</a
       >
-        <clr-icon shape="pencil"></clr-icon> Reject
-      </button>
+      <a
+        routerLink="/app-own-reimbursement"
+        style="text-align: right"
+        class="nav-link nav-text"
+        >My Reimbursements</a
+      >
+      <a (click)="logout()" class="nav-link nav-text">Logout</a>
     </div>
-    <clr-modal [(clrModalOpen)]="isModalOpen_remarkupdate">
-      <h3 class="modal-title">REJECT REIMBURSEMENT</h3>
-      <div class="modal-body">
-        <form #datas_create="ngForm" clrForm (ngSubmit)="reject(datas_create)">
-          <span class="clr-sr-only"
-            >Tabbing through form inputs will trigger validation messages to be
-            read aloud.</span
-          >
-          <clr-input-container>
-            <label>REMARKS</label>
-            <input clrInput type="text" id="remarks" name="remarks" ngModel />
-          </clr-input-container>
-
-          <br />
-          <button class="btn btn-primary">REJECT</button>
-        </form>
-      </div>
-    </clr-modal>
-    <div class="btn-group">
-      <clr-dropdown>
+    <div class="header-actions">
+      <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
+        <clr-icon shape="cog"></clr-icon>
+      </a>
+    </div>
+  </header>
+  <p><strong>REIMBURSEMENT DETAILS (HR MODULE)</strong></p>
+  <clr-datagrid
+    [(clrDgSelected)]="selected"
+    [clrDgRowSelection]="true"
+    (clrDgSelectedChange)="selectionChanged($event)"
+  >
+    <clr-dg-action-bar>
+      <div class="btn-group">
         <button
           type="button"
           class="btn btn-sm btn-secondary"
-          clrDropdownTrigger
+          (click)="approve()"
+          *ngIf="selected.length == 1"
         >
-          Export
-          <clr-icon shape="caret down"></clr-icon>
+          <clr-icon shape="pencil"></clr-icon> Approve
         </button>
-        <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
-          <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadUsers()" download="books.csv" clrDropdownItem>Export All</a>
-                  <a  #filtered_download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filtered</a> -->
-          <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filterd</a> -->
-          <!-- <button type="button" (click)="onExportSelected()" [disabled]="selected.length === 0" clrDropdownItem>Export Selected Items</button> -->
-        </clr-dropdown-menu>
-      </clr-dropdown>
-    </div>
-    <button
-      type="button"
-      style="float: right"
-      class="btn btn-sm btn-secondary"
-      (click)="openModal_create()"
-    >
-      <clr-icon shape="pencil"></clr-icon> Create
-    </button>
-    <clr-modal [(clrModalOpen)]="isModalOpen_create">
-      <h3 class="modal-title">Create</h3>
-      <div class="modal-body">
-        <form
-          #datas_create="ngForm"
-          clrForm
-          (ngSubmit)="create(datas_create.value)"
+        <button
+          type="button"
+          class="btn btn-sm btn-danger"
+          (click)="openModal_remarkupdate()"
+          *ngIf="selected.length == 1"
         >
-          <span class="clr-sr-only"
-            >Tabbing through form inputs will trigger validation messages to be
-            read aloud.</span
-          >
-          <clr-input-container>
-            <label>TYPE</label>
-            <input clrInput type="text" id="type" name="type" ngModel />
-          </clr-input-container>
-          <clr-input-container>
-            <label>ATTACHMENT</label>
-            <input
-              clrInput
-              type="text"
-              id="attachment"
-              name="attachment"
-              ngModel
-            />
-            <clr-control-error
-              >We need your last name for legal compliance</clr-control-error
-            >
-          </clr-input-container>
-          <clr-input-container>
-            <label>REMARKS</label>
-            <input clrInput type="text" id="remarks" name="remarks" ngModel />
-          </clr-input-container>
-
-          <br />
-          <button class="btn btn-primary">CREATE</button>
-        </form>
+          <clr-icon shape="pencil"></clr-icon> Reject
+        </button>
       </div>
-    </clr-modal>
-  </clr-dg-action-bar>
+      <clr-modal [(clrModalOpen)]="isModalOpen_remarkupdate">
+        <h3 class="modal-title">REJECT REIMBURSEMENT</h3>
+        <div class="modal-body">
+          <form
+            #datas_create="ngForm"
+            clrForm
+            (ngSubmit)="reject(datas_create)"
+          >
+            <span class="clr-sr-only"
+              >Tabbing through form inputs will trigger validation messages to
+              be read aloud.</span
+            >
+            <clr-input-container>
+              <label>REMARKS</label>
+              <input clrInput type="text" id="remarks" name="remarks" ngModel />
+            </clr-input-container>
 
-  <clr-dg-column [clrDgField]="'empId'">EMP ID</clr-dg-column>
-  <clr-dg-column [clrDgField]="'emailId'">EMAIL ID</clr-dg-column>
-  <clr-dg-column [clrDgField]="'type'">TYPE</clr-dg-column>
-  <clr-dg-column [clrDgField]="'attachment'">ATTACHMENT</clr-dg-column>
-  <clr-dg-column [clrDgField]="'status'">STATUS </clr-dg-column>
-  <clr-dg-column [clrDgField]="'remarks'">REMARKS</clr-dg-column>
-  <clr-dg-column [clrDgField]="'currentDateTime'">CREATE AT</clr-dg-column>
-  <clr-dg-row *clrDgItems="let data of reimbursementdatas" [clrDgItem]="data">
-    <clr-dg-cell>{{ data.empId }} </clr-dg-cell>
-    <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
-    <clr-dg-cell>{{ data.type }}</clr-dg-cell>
-    <clr-dg-cell>{{ data.attachment }}</clr-dg-cell>
-    <clr-dg-cell>{{ data.status }}</clr-dg-cell>
-    <clr-dg-cell>{{ data.remarks }}</clr-dg-cell>
-    <clr-dg-cell>{{ data.currentDateTime }}</clr-dg-cell>
-  </clr-dg-row>
-  <clr-dg-footer>
-    <clr-dg-pagination #pagination [clrDgPageSize]="10">
-      <clr-dg-page-size [clrPageSizeOptions]="[5, 10, 20, 50, 100]"
-        >Forms per page</clr-dg-page-size
+            <br />
+            <button class="btn btn-primary">REJECT</button>
+          </form>
+        </div>
+      </clr-modal>
+      <div class="btn-group">
+        <clr-dropdown>
+          <button
+            type="button"
+            class="btn btn-sm btn-secondary"
+            clrDropdownTrigger
+          >
+            Export
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+          <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
+            <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadUsers()" download="books.csv" clrDropdownItem>Export All</a>
+                  <a  #filtered_download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filtered</a> -->
+            <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filterd</a> -->
+            <!-- <button type="button" (click)="onExportSelected()" [disabled]="selected.length === 0" clrDropdownItem>Export Selected Items</button> -->
+          </clr-dropdown-menu>
+        </clr-dropdown>
+      </div>
+      <button
+        type="button"
+        style="float: right"
+        class="btn btn-sm btn-secondary"
+        (click)="openModal_create()"
       >
-      {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
-      {{ pagination.totalItems }} Forms
-    </clr-dg-pagination>
-  </clr-dg-footer>
-</clr-datagrid>
-<span *ngFor="let user of selected">{{ user.id + " " }}</span>
+        <clr-icon shape="pencil"></clr-icon> Create
+      </button>
+      <clr-modal [(clrModalOpen)]="isModalOpen_create">
+        <h3 class="modal-title">Create</h3>
+        <div class="modal-body">
+          <form
+            #datas_create="ngForm"
+            clrForm
+            (ngSubmit)="create(datas_create.value)"
+          >
+            <span class="clr-sr-only"
+              >Tabbing through form inputs will trigger validation messages to
+              be read aloud.</span
+            >
+            <clr-input-container>
+              <label>TYPE</label>
+              <input clrInput type="text" id="type" name="type" ngModel />
+            </clr-input-container>
+            <clr-input-container>
+              <label>ATTACHMENT</label>
+              <input
+                clrInput
+                type="text"
+                id="attachment"
+                name="attachment"
+                ngModel
+              />
+              <clr-control-error
+                >We need your last name for legal compliance</clr-control-error
+              >
+            </clr-input-container>
+            <clr-input-container>
+              <label>REMARKS</label>
+              <input clrInput type="text" id="remarks" name="remarks" ngModel />
+            </clr-input-container>
+
+            <br />
+            <button class="btn btn-primary">CREATE</button>
+          </form>
+        </div>
+      </clr-modal>
+    </clr-dg-action-bar>
+
+    <clr-dg-column [clrDgField]="'empId'">EMP ID</clr-dg-column>
+    <clr-dg-column [clrDgField]="'emailId'">EMAIL ID</clr-dg-column>
+    <clr-dg-column [clrDgField]="'type'">TYPE</clr-dg-column>
+    <clr-dg-column [clrDgField]="'attachment'">ATTACHMENT</clr-dg-column>
+    <clr-dg-column [clrDgField]="'status'">STATUS </clr-dg-column>
+    <clr-dg-column [clrDgField]="'remarks'">REMARKS</clr-dg-column>
+    <clr-dg-column [clrDgField]="'currentDateTime'">CREATE AT</clr-dg-column>
+    <clr-dg-row *clrDgItems="let data of reimbursementdatas" [clrDgItem]="data">
+      <clr-dg-cell>{{ data.empId }} </clr-dg-cell>
+      <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
+      <clr-dg-cell>{{ data.type }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.attachment }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.status }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.remarks }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.currentDateTime }}</clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[5, 10, 20, 50, 100]"
+          >Forms per page</clr-dg-page-size
+        >
+        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+        {{ pagination.totalItems }} Forms
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+  <span *ngFor="let user of selected">{{ user.id + " " }}</span>
+</div>
+<ng-template #elseBlock>
+  <header class="header-6">
+    <div class="branding">...</div>
+    <div class="header-nav">
+      You are Logged Out, Please
+      <a routerLink="" class="nav-link nav-text">Login</a>
+    </div>
+    <div class="header-actions">
+      <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
+        <clr-icon shape="cog"></clr-icon>
+      </a>
+    </div>
+  </header>
+</ng-template>

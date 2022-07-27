@@ -98,7 +98,14 @@ export class HRModuleComponent implements OnInit {
         window.location.reload();
       });
   }
-
+  logout() {
+    window.sessionStorage.removeItem('storage_email');
+    window.sessionStorage.removeItem('storage_empid');
+    window.sessionStorage.removeItem('storage_role');
+    window.sessionStorage.removeItem('storage_id');
+    console.log('cleared');
+    this.router.navigate(['']);
+  }
   reject(data: any) {
     console.log(data);
     this.isModalOpen_remarkupdate = false;

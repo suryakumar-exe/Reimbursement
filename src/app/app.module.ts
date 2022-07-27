@@ -9,6 +9,8 @@ import { ClarityModule } from '@clr/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { HRModuleComponent } from './hrmodule/hrmodule.component';
 import { LoginCreationComponent } from './login-creation/login-creation.component';
+import { BaseLogoutComponent } from './base-logout/base-logout.component';
+import { OwnReimbursementComponent } from './own-reimbursement/own-reimbursement.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { LoginCreationComponent } from './login-creation/login-creation.componen
     BaseLoginComponent,
     HRModuleComponent,
     LoginCreationComponent,
+    BaseLogoutComponent,
+    OwnReimbursementComponent,
   ],
   imports: [
     BrowserModule,
