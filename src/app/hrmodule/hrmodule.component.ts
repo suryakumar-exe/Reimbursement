@@ -49,6 +49,7 @@ export class HRModuleComponent implements OnInit {
     this.isModalOpen_create = true;
   }
   create(data: any) {
+    console.log(data);
     this.http
       .post('https://localhost:5001/api/Reimbursement/CreateReimbursement', {
         id: 0,
@@ -62,7 +63,7 @@ export class HRModuleComponent implements OnInit {
       })
       .subscribe((data) => {
         console.log(data);
-        window.location.reload();
+        //window.location.reload();
       });
   }
   selectionChanged(pass: any[]) {

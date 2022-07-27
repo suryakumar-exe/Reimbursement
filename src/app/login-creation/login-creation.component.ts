@@ -51,7 +51,7 @@ export class LoginCreationComponent implements OnInit {
     this.router.navigate(['']);
   }
   create(event: any) {
-    //console.log(event);
+    console.log(event);
     this.http
       .post('https://localhost:5001/api/LoginDetails/CreateLogin', {
         id: 0,
