@@ -11,7 +11,9 @@ import { HRModuleComponent } from './hrmodule/hrmodule.component';
 import { LoginCreationComponent } from './login-creation/login-creation.component';
 import { BaseLogoutComponent } from './base-logout/base-logout.component';
 import { OwnReimbursementComponent } from './own-reimbursement/own-reimbursement.component';
-
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,8 @@ import { OwnReimbursementComponent } from './own-reimbursement/own-reimbursement
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     AppRoutingModule,
     FormsModule,
     ClarityModule,

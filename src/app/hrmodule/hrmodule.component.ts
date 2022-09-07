@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+const newMetadata = {
+  contentType: 'application/pdf',
+};
+// import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize, Observable } from 'rxjs';
 @Component({
   selector: 'app-hrmodule',
   templateUrl: './hrmodule.component.html',
@@ -24,7 +32,10 @@ export class HRModuleComponent implements OnInit {
   new_updated_remark: any;
   status: any = 'approved by level 1';
   reimbursementdatas: any = [];
+  selectedFile: any;
   today: object = new Date();
+  files: any = [];
+  public downloadURL: any;
   ngOnInit(): void {
     this.email_session = window.sessionStorage.getItem('storage_email');
     this.empid_session = window.sessionStorage.getItem('storage_empid');
@@ -32,6 +43,7 @@ export class HRModuleComponent implements OnInit {
     this.id_session = window.sessionStorage.getItem('storage_id');
   }
   constructor(
+    private storage: AngularFireStorage,
     private http: HttpClient,
     private router: Router,
     private location: Location
@@ -48,22 +60,59 @@ export class HRModuleComponent implements OnInit {
   openModal_create() {
     this.isModalOpen_create = true;
   }
+
   create(data: any) {
-    console.log(data);
+    // const myTest = this.afs.collection('test').ref.doc();
+    // console.log(myTest.id);
+    var attachmentFile;
+    const file = this.selectedFile;
+    const filePath = `Demo/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+    // this.uploadPercent = task.percentageChanges();
+
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef
+            .getDownloadURL()
+            .toPromise()
+            .then((url: any) => {
+              this.downloadURL = url.toString();
+              attachmentFile = url;
+              // myTest.set({
+              //   categoria: this.forma.value.categoria,
+              //   imagenes : this.downloadURL,
+              //   myId : myTest.id
+              // })
+
+              console.log(this.downloadURL);
+              this.createReim(data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+      )
+      .subscribe();
+  }
+
+  createReim(data: any) {
     this.http
       .post('https://localhost:5001/api/Reimbursement/CreateReimbursement', {
         id: 0,
         empId: this.empid_session,
         emailId: this.email_session,
         type: data.type,
-        attachment: data.attachment,
+        attachment: this.downloadURL,
         remarks: data.remarks,
         status: this.status,
         currentDateTime: this.today,
       })
       .subscribe((data) => {
         console.log(data);
-        //window.location.reload();
       });
   }
   selectionChanged(pass: any[]) {
@@ -139,5 +188,39 @@ export class HRModuleComponent implements OnInit {
         this.reimbursementdatas = res;
         console.log(this.reimbursementdatas);
       });
+  }
+
+  url: any;
+  upload(event: any) {
+    this.selectedFile = event.target.files[0];
+    // console.log(event.target.files[0].name, 'Called');
+    // for (let index = 0; index < 1; index++) {
+    //   const file = event[index];
+    //   const filePath = `Demo/${new Date().getTime()}_${
+    //     event.target.files[0].name
+    //   }`;
+    //   const fileRef = this.storage.ref(filePath);
+    //   const task: AngularFireUploadTask = this.storage.upload(
+    //     filePath,
+    //     event[index]
+    //   );
+    //   task
+    //     .snapshotChanges()
+    //     .pipe(
+    //       finalize(() => {
+    //         this.downloadURL = fileRef.getDownloadURL();
+    //         this.downloadURL.subscribe((url: any) => {
+    //           if (url) {
+    //             this.url = url;
+
+    //             console.log(url, 'URL');
+    //             this.files.push(file);
+    //           }
+    //         });
+    //       })
+    //     )
+    //     .subscribe();
+
+    // }
   }
 }

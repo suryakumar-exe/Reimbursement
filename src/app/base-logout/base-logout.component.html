@@ -1,1 +1,14 @@
-<p>base-logout works!</p>
+<clr-datagrid
+  [(clrDgSelected)]="selected"
+  class="datagrid-compact"
+  style="right: 0px; bottom: 4%; position: fixed; left: 0px; top: 82px"
+  (clrDgSelectedChange)="selectionChanged($event)"
+>
+  <clr-dg-column [clrDgField]="'id'" style="align-content: space-around">
+    <ng-container> ID </ng-container>
+  </clr-dg-column>
+
+  <clr-dg-row *clrDgItems="let user of jArray" [clrDgItem]="user" class="align">
+    <clr-dg-cell>{{ user.id }}</clr-dg-cell>
+  </clr-dg-row>
+</clr-datagrid>
