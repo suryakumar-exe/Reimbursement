@@ -4,11 +4,15 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-own-reimbursement',
   templateUrl: './own-reimbursement.component.html',
-  styleUrls: ['./own-reimbursement.component.css'],
+  styleUrls: ['./own-reimbursement.component.scss'],
 })
 export class OwnReimbursementComponent implements OnInit {
   my_reimbursements: any = [];
   selected: any = [];
+  approvedlevel1: any;
+  Rejected: any;
+  pending: any;
+  total: any;
   id_session: any;
   email_session: any;
   empid_session: any;
@@ -32,7 +36,21 @@ export class OwnReimbursementComponent implements OnInit {
           (e: { emailId: any }) => e.emailId === this.email_session
         );
         console.log(this.my_reimbursements);
+        this.filters();
       });
+  }
+  filters() {
+    this.total = this.my_reimbursements.length;
+    this.approvedlevel1 = this.my_reimbursements.filter(
+      (e: any) => e.status === 'Aproved by level 1'
+    ).length;
+
+    this.Rejected = this.my_reimbursements.filter(
+      (e: any) => e.status === 'Rejected'
+    ).length;
+    this.pending = this.my_reimbursements.filter(
+      (e: any) => e.status === 'Pending'
+    ).length;
   }
   selectionChanged(event: any) {}
   logout() {

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { LocalstorageService } from '../localstorage.service';
 import { NavigationExtras } from '@angular/router';
+import { Console } from 'console';
 @Component({
   selector: 'app-base-login',
   templateUrl: './base-login.component.html',
@@ -30,6 +31,7 @@ export class BaseLoginComponent implements OnInit {
         console.log(person);
         var check_email = person.map((e: { emailId: any }) => e.emailId);
         var check_password = person.map((e: { password: any }) => e.password);
+        console.log(check_email, check_password);
         if (
           String(check_email) === form.value.email &&
           String(check_password) === form.value.password

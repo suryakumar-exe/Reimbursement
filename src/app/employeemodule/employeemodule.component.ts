@@ -15,10 +15,14 @@ import { finalize, Observable } from 'rxjs';
 @Component({
   selector: 'app-employeemodule',
   templateUrl: './employeemodule.component.html',
-  styleUrls: ['./employeemodule.component.css'],
+  styleUrls: ['./employeemodule.component.scss'],
 })
 export class EmployeemoduleComponent implements OnInit {
   selected: any = [];
+  approvedlevel1: any;
+  Rejected: any;
+  pending: any;
+  total: any;
   id_session: any;
   email_session: any;
   empid_session: any;
@@ -63,6 +67,7 @@ export class EmployeemoduleComponent implements OnInit {
   openModal_create() {
     this.isModalOpen_create = true;
   }
+
   reimbursementdata() {
     this.http
       .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
@@ -72,7 +77,21 @@ export class EmployeemoduleComponent implements OnInit {
           (e: { emailId: any }) => e.emailId === this.email_session
         );
         console.log(this.my_reimbursements);
+        this.filters();
       });
+  }
+  filters() {
+    this.total = this.my_reimbursements.length;
+    this.approvedlevel1 = this.my_reimbursements.filter(
+      (e: any) => e.status === 'Aproved by level 1'
+    ).length;
+
+    this.Rejected = this.my_reimbursements.filter(
+      (e: any) => e.status === 'Rejected'
+    ).length;
+    this.pending = this.my_reimbursements.filter(
+      (e: any) => e.status === 'Pending'
+    ).length;
   }
   create(data: any) {
     // const myTest = this.afs.collection('test').ref.doc();

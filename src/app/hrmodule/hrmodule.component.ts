@@ -13,13 +13,17 @@ import { finalize, Observable } from 'rxjs';
 @Component({
   selector: 'app-hrmodule',
   templateUrl: './hrmodule.component.html',
-  styleUrls: ['./hrmodule.component.css'],
+  styleUrls: ['./hrmodule.component.scss'],
 })
 export class HRModuleComponent implements OnInit {
   selected: any = [];
   id_session: any;
   email_session: any;
   empid_session: any;
+  approvedlevel1: any;
+  Rejected: any;
+  pending: any;
+  total: any;
   role_session: any;
   update_id: any;
   update_empid: any;
@@ -188,14 +192,29 @@ export class HRModuleComponent implements OnInit {
       .subscribe((res) => {
         this.reimbursementdatas = res;
         console.log(this.reimbursementdatas);
-        this.pending();
+        this.filters();
+        // this.pending();
       });
   }
-  pending() {
-    var person = this.reimbursementdatas.filter(
+
+  // pending() {
+  //   var person = this.reimbursementdatas.filter(
+  //     (e: any) => e.status === 'Pending'
+  //   );
+  //   this.PendingStatus = person;
+  // }
+  filters() {
+    this.total = this.reimbursementdatas.length;
+    this.approvedlevel1 = this.reimbursementdatas.filter(
+      (e: any) => e.status === 'Aproved by level 1'
+    ).length;
+
+    this.Rejected = this.reimbursementdatas.filter(
+      (e: any) => e.status === 'Rejected'
+    ).length;
+    this.pending = this.reimbursementdatas.filter(
       (e: any) => e.status === 'Pending'
-    );
-    this.PendingStatus = person;
+    ).length;
   }
   url: any;
   upload(event: any) {

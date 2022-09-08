@@ -24,6 +24,36 @@
       </a>
     </div>
   </header>
+  <p><strong>DASHBOARD (HR MODULE)</strong></p>
+  <div style="text-align: center">
+    <div gridCell class="card card-body">
+      <h4>
+        {{ total }} <br />
+        Total
+      </h4>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div gridCell class="card card-body">
+      <h4>
+        {{ pending }} <br />
+        Pending
+      </h4>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div gridCell class="card card-body2">
+      <h4>
+        {{ approvedlevel1 }} <br />
+        Aprroved By Level 1
+      </h4>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div gridCell class="card card-body3">
+      <h4>
+        {{ Rejected }} <br />
+        Rejected
+      </h4>
+    </div>
+  </div>
   <p><strong>REIMBURSEMENT DETAILS (HR MODULE)</strong></p>
   <clr-datagrid
     [(clrDgSelected)]="selected"
@@ -95,7 +125,7 @@
         class="btn btn-sm btn-secondary"
         (click)="openModal_create()"
       >
-        <clr-icon shape="pencil"></clr-icon> Create1
+        <clr-icon shape="pencil"></clr-icon> Create
       </button>
       <clr-modal [(clrModalOpen)]="isModalOpen_create">
         <h3 class="modal-title">Create</h3>
@@ -146,7 +176,7 @@
     <clr-dg-column [clrDgField]="'status'">STATUS </clr-dg-column>
     <clr-dg-column [clrDgField]="'remarks'">REMARKS</clr-dg-column>
     <clr-dg-column [clrDgField]="'currentDateTime'">CREATE AT</clr-dg-column>
-    <clr-dg-row *clrDgItems="let data of PendingStatus" [clrDgItem]="data">
+    <clr-dg-row *clrDgItems="let data of reimbursementdatas" [clrDgItem]="data">
       <clr-dg-cell>{{ data.empId }} </clr-dg-cell>
       <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
       <clr-dg-cell>{{ data.type }}</clr-dg-cell>

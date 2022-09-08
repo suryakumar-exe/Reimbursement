@@ -1,0 +1,93 @@
+h4 {
+  text-align: center;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+}
+.card {
+  &.card-body {
+    background: #ffffff;
+    color: rgb(68, 68, 68);
+    height: 100px;
+    width: 200px;
+    border-radius: 25px;
+    border-style: solid;
+    border-color: rgb(250, 225, 2);
+    transition: background 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    &:hover {
+      background: #e3f78b;
+      color: #000;
+    }
+  }
+}
+.card {
+  &.card-body1 {
+    background: #ffffff;
+    color: rgb(68, 68, 68);
+    height: 100px;
+    width: 200px;
+    border-radius: 25px;
+    border-style: solid;
+    border-color: rgb(235, 90, 90);
+    transition: background 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    &:hover {
+      background: #e9a984;
+      color: #000;
+    }
+  }
+}
+.card {
+  &.card-body2 {
+    background: #ffffff;
+    color: rgb(68, 68, 68);
+    height: 100px;
+    width: 200px;
+    border-radius: 25px;
+    border-style: solid;
+    border-color: rgb(5, 148, 48);
+    transition: background 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    &:hover {
+      background: #89f0b0;
+      color: #000;
+    }
+  }
+}
+
+.card {
+  &.card-body3 {
+    background: #ffffff;
+    color: rgb(68, 68, 68);
+    height: 100px;
+    width: 200px;
+    border-radius: 25px;
+    border-style: solid;
+    border-color: rgb(5, 148, 136);
+    transition: background 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    &:hover {
+      background: #a4d6e2;
+      color: #000;
+    }
+  }
+}
+
+inarow {
+  position: absolute;
+  min-height: 100vh;
+  width: 150vw;
+  padding: 100px 30vw 50px 15vw;
+  background-color: whitesmoke;
+  z-index: 1000;
+  display: inline-block;
+  vertical-align: middle;
+}

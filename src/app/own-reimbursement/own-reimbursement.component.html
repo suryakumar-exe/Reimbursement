@@ -20,120 +20,49 @@
       </a>
     </div>
   </header>
-  <p><strong>REIMBURSEMENT DETAILS (HR MODULE)</strong></p>
+  <p><strong>DASHBOARD</strong></p>
+  <div style="text-align: center">
+    <div gridCell class="card card-body">
+      <h4>
+        {{ total }} <br />
+        Total
+      </h4>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div gridCell class="card card-body">
+      <h4>
+        {{ pending }} <br />
+        Pending
+      </h4>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div gridCell class="card card-body1">
+      <h4>
+        {{ Rejected }} <br />
+        Rejected
+      </h4>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div gridCell class="card card-body2">
+      <h4>
+        {{ approvedlevel1 }} <br />
+        Aprroved By Level 1
+      </h4>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div gridCell class="card card-body3">
+      <h4>
+        4 <br />
+        Holded
+      </h4>
+    </div>
+  </div>
+  <p><strong>REIMBURSEMENT DETAILS</strong></p>
   <clr-datagrid
     [(clrDgSelected)]="selected"
     [clrDgRowSelection]="true"
     (clrDgSelectedChange)="selectionChanged($event)"
   >
-    <!-- <clr-dg-action-bar>
-        <div class="btn-group">
-          <button
-            type="button"
-            class="btn btn-sm btn-secondary"
-            (click)="approve()"
-            *ngIf="selected.length == 1"
-          >
-            <clr-icon shape="pencil"></clr-icon> Approve
-          </button>
-          <button
-            type="button"
-            class="btn btn-sm btn-danger"
-            (click)="openModal_remarkupdate()"
-            *ngIf="selected.length == 1"
-          >
-            <clr-icon shape="pencil"></clr-icon> Reject
-          </button>
-        </div>
-        <clr-modal [(clrModalOpen)]="isModalOpen_remarkupdate">
-          <h3 class="modal-title">REJECT REIMBURSEMENT</h3>
-          <div class="modal-body">
-            <form
-              #datas_create="ngForm"
-              clrForm
-              (ngSubmit)="reject(datas_create)"
-            >
-              <span class="clr-sr-only"
-                >Tabbing through form inputs will trigger validation messages to
-                be read aloud.</span
-              >
-              <clr-input-container>
-                <label>REMARKS</label>
-                <input clrInput type="text" id="remarks" name="remarks" ngModel />
-              </clr-input-container>
-  
-              <br />
-              <button class="btn btn-primary">REJECT</button>
-            </form>
-          </div>
-        </clr-modal>
-        <div class="btn-group">
-          <clr-dropdown>
-            <button
-              type="button"
-              class="btn btn-sm btn-secondary"
-              clrDropdownTrigger
-            >
-              Export
-              <clr-icon shape="caret down"></clr-icon>
-            </button>
-            <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
-               <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadUsers()" download="books.csv" clrDropdownItem>Export All</a>
-                    <a  #filtered_download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filtered</a> -->
-    <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filterd</a> -->
-    <!-- <button type="button" (click)="onExportSelected()" [disabled]="selected.length === 0" clrDropdownItem>Export Selected Items</button> -->
-    <!-- </clr-dropdown-menu>
-          </clr-dropdown>
-        </div>
-        <button
-          type="button"
-          style="float: right"
-          class="btn btn-sm btn-secondary"
-          (click)="openModal_create()"
-        >
-          <clr-icon shape="pencil"></clr-icon> Create
-        </button>
-        <clr-modal [(clrModalOpen)]="isModalOpen_create">
-          <h3 class="modal-title">Create</h3>
-          <div class="modal-body">
-            <form
-              #datas_create="ngForm"
-              clrForm
-              (ngSubmit)="create(datas_create.value)"
-            >
-              <span class="clr-sr-only"
-                >Tabbing through form inputs will trigger validation messages to
-                be read aloud.</span
-              >
-              <clr-input-container>
-                <label>TYPE</label>
-                <input clrInput type="text" id="type" name="type" ngModel />
-              </clr-input-container>
-              <clr-input-container>
-                <label>ATTACHMENT</label>
-                <input
-                  clrInput
-                  type="text"
-                  id="attachment"
-                  name="attachment"
-                  ngModel
-                />
-                <clr-control-error
-                  >We need your last name for legal compliance</clr-control-error
-                >
-              </clr-input-container>
-              <clr-input-container>
-                <label>REMARKS</label>
-                <input clrInput type="text" id="remarks" name="remarks" ngModel />
-              </clr-input-container>
-  
-              <br />
-              <button class="btn btn-primary">CREATE</button>
-            </form>
-          </div>
-        </clr-modal>
-      </clr-dg-action-bar> -->
-
     <clr-dg-column [clrDgField]="'empId'">EMP ID</clr-dg-column>
     <clr-dg-column [clrDgField]="'emailId'">EMAIL ID</clr-dg-column>
     <clr-dg-column [clrDgField]="'type'">TYPE</clr-dg-column>
