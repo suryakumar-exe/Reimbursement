@@ -3,7 +3,7 @@
     <div class="branding">...</div>
     <div class="header-nav">
       <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
-        >Reimbursement Details</a
+        >All Reimbursement Details</a
       >
       <a routerLink="/app-login-creation" class="nav-link nav-text"
         >Login Details</a
@@ -15,9 +15,10 @@
         >My Reimbursements</a
       >
       <a routerLink="/app-base-logout" class="nav-link nav-text">Jobs</a>
-      <a (click)="logout()" class="nav-link nav-text">Logout</a>
     </div>
     <div class="header-actions">
+      <a class="nav-link nav-text">{{ empid_session }}</a>
+      <a (click)="logout()" class="nav-link nav-text">Logout</a>
       <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
         <clr-icon shape="cog"></clr-icon>
       </a>
@@ -145,7 +146,7 @@
     <clr-dg-column [clrDgField]="'status'">STATUS </clr-dg-column>
     <clr-dg-column [clrDgField]="'remarks'">REMARKS</clr-dg-column>
     <clr-dg-column [clrDgField]="'currentDateTime'">CREATE AT</clr-dg-column>
-    <clr-dg-row *clrDgItems="let data of reimbursementdatas" [clrDgItem]="data">
+    <clr-dg-row *clrDgItems="let data of PendingStatus" [clrDgItem]="data">
       <clr-dg-cell>{{ data.empId }} </clr-dg-cell>
       <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
       <clr-dg-cell>{{ data.type }}</clr-dg-cell>

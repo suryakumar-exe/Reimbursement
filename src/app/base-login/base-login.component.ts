@@ -40,24 +40,40 @@ export class BaseLoginComponent implements OnInit {
           var check_id = person.map((e: { id: any }) => e.id);
           var check_role = person.map((e: { role: any }) => e.role);
           var check_empid = person.map((e: { empID: any }) => e.empID);
-          console.log('Athuraziation Found');
+
           window.sessionStorage.setItem('storage_id', check_id);
           window.sessionStorage.setItem('storage_email', check_email);
           window.sessionStorage.setItem('storage_role', check_role);
           window.sessionStorage.setItem('storage_empid', check_empid);
           if (check_role == 'HR') {
+            console.log('Athuraziation Found in HR');
             this.router.navigate(['/app-hrmodulecomponent'], {
               state: { example: 'bar' },
             });
+          } else if (check_role == 'Employee') {
+            console.log('Athuraziation Found in Employee');
+            this.router.navigate(['/app-employeemodule'], {
+              state: { example: 'bar' },
+            });
+          } else if (check_role == 'IT') {
+            console.log('Athuraziation Found in Employee');
+            this.router.navigate(['/app-itmodule'], {
+              state: { example: 'bar' },
+            });
+          } else if (check_role == 'Manager') {
+            console.log('Athuraziation Found in Employee');
+            this.router.navigate(['/app-managermodule'], {
+              state: { example: 'bar' },
+            });
+          } else if (
+            form.value.email == 'suryakumar2808@gmail.com' &&
+            form.value.password == 'Surya'
+          ) {
+            this.router.navigate(['/app-hrmodulecomponent']);
+            console.log('Found hardcode');
+          } else {
+            console.log('Not-Found');
           }
-        } else if (
-          form.value.email == 'suryakumar2808@gmail.com' &&
-          form.value.password == 'Surya'
-        ) {
-          this.router.navigate(['/app-hrmodulecomponent']);
-          console.log('Found hardcode');
-        } else {
-          console.log('Not-Found');
         }
       });
   }

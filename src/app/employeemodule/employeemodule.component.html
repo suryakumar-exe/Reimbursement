@@ -2,13 +2,10 @@
   <header class="header-6">
     <div class="branding">...</div>
     <div class="header-nav">
-      <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
-        >All Reimbursement Details</a
-      >
-      <a routerLink="/app-login-creation" class="nav-link nav-text"
-        >Login Details</a
-      >
-      <a routerLink="/app-own-reimbursement" class="nav-link nav-text"
+      <a
+        routerLink="/app-employeemodule"
+        style="text-align: right"
+        class="nav-link nav-text"
         >My Reimbursements</a
       >
     </div>
@@ -20,50 +17,15 @@
       </a>
     </div>
   </header>
+  <p><strong>REIMBURSEMENT DETAILS (EMPLOYEE)</strong></p>
   <clr-datagrid
     [(clrDgSelected)]="selected"
     [clrDgRowSelection]="true"
     (clrDgSelectedChange)="selectionChanged($event)"
   >
     <clr-dg-action-bar>
-      <div class="btn-group">
-        <button
-          type="button"
-          class="btn btn-sm btn-secondary"
-          (click)="openModal_remarkupdate()"
-          *ngIf="selected.length == 1"
-        >
-          <clr-icon shape="pencil"></clr-icon> Change Password
-        </button>
-      </div>
-      <clr-modal [(clrModalOpen)]="isModalOpen_remarkupdate">
-        <h3 class="modal-title">REJECT REIMBURSEMENT</h3>
-        <div class="modal-body">
-          <form
-            #datas_create="ngForm"
-            clrForm
-            (ngSubmit)="editpassword(datas_create)"
-          >
-            <span class="clr-sr-only"
-              >Tabbing through form inputs will trigger validation messages to
-              be read aloud.</span
-            >
-            <clr-input-container>
-              <label>NEW PASSWORD</label>
-              <input
-                clrInput
-                type="text"
-                id="password"
-                name="password"
-                ngModel
-              />
-            </clr-input-container>
+      <div class="btn-group"></div>
 
-            <br />
-            <button class="btn btn-primary">REJECT</button>
-          </form>
-        </div>
-      </clr-modal>
       <div class="btn-group">
         <clr-dropdown>
           <button
@@ -76,7 +38,7 @@
           </button>
           <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
             <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadUsers()" download="books.csv" clrDropdownItem>Export All</a>
-                  <a  #filtered_download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filtered</a> -->
+                    <a  #filtered_download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filtered</a> -->
             <!-- <a  #download class="btn btn-sm btn-secondary" href="" (click)="downloadfilteredUsers()" download="filtered_books.csv" clrDropdownItem>Export Filterd</a> -->
             <!-- <button type="button" (click)="onExportSelected()" [disabled]="selected.length === 0" clrDropdownItem>Export Selected Items</button> -->
           </clr-dropdown-menu>
@@ -94,39 +56,35 @@
         <h3 class="modal-title">Create</h3>
         <div class="modal-body">
           <form
-            #datas_create_login="ngForm"
+            #datas_create_reim="ngForm"
             clrForm
-            (ngSubmit)="create(datas_create_login.value)"
+            (ngSubmit)="create(datas_create_reim.value)"
           >
             <span class="clr-sr-only"
               >Tabbing through form inputs will trigger validation messages to
               be read aloud.</span
             >
             <clr-input-container>
-              <label>EMP ID</label>
-              <input clrInput type="text" id="empID" name="empID" ngModel />
+              <label>TYPE</label>
+              <input clrInput type="text" id="type" name="type" ngModel />
             </clr-input-container>
             <clr-input-container>
-              <label>EMAIL ID</label>
-              <input clrInput type="text" id="emailId" name="emailId" ngModel />
+              <label>ATTACHMENT</label>
+              <input
+                clrInput
+                type="file"
+                (change)="upload($event)"
+                id="attachment"
+                name="attachment"
+                ngModel
+              />
               <clr-control-error
                 >We need your last name for legal compliance</clr-control-error
               >
             </clr-input-container>
             <clr-input-container>
-              <label>PASSWORD</label>
-              <input
-                clrInput
-                type="text"
-                id="password"
-                name="password"
-                ngModel
-              />
-            </clr-input-container>
-
-            <clr-input-container>
-              <label>ROLE</label>
-              <input clrInput type="text" id="role" name="role" ngModel />
+              <label>REMARKS</label>
+              <input clrInput type="text" id="remarks" name="remarks" ngModel />
             </clr-input-container>
 
             <br />
@@ -136,19 +94,22 @@
       </clr-modal>
     </clr-dg-action-bar>
 
-    <clr-dg-column [clrDgField]="'empID'">EMP ID</clr-dg-column>
+    <clr-dg-column [clrDgField]="'empId'">EMP ID</clr-dg-column>
     <clr-dg-column [clrDgField]="'emailId'">EMAIL ID</clr-dg-column>
-    <clr-dg-column [clrDgField]="'password'">PASSWORD</clr-dg-column>
-    <clr-dg-column [clrDgField]="'role'">ROLE</clr-dg-column>
-    <clr-dg-column [clrDgField]="'currentDateTime'"
-      >DATE AND TIME</clr-dg-column
-    >
-
-    <clr-dg-row *clrDgItems="let data of logindata" [clrDgItem]="data">
-      <clr-dg-cell>{{ data.empID }} </clr-dg-cell>
+    <clr-dg-column [clrDgField]="'type'">TYPE</clr-dg-column>
+    <clr-dg-column [clrDgField]="'attachment'">ATTACHMENT</clr-dg-column>
+    <clr-dg-column [clrDgField]="'status'">STATUS </clr-dg-column>
+    <clr-dg-column [clrDgField]="'remarks'">REMARKS</clr-dg-column>
+    <clr-dg-column [clrDgField]="'currentDateTime'">CREATE AT</clr-dg-column>
+    <clr-dg-row *clrDgItems="let data of my_reimbursements" [clrDgItem]="data">
+      <clr-dg-cell>{{ data.empId }} </clr-dg-cell>
       <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
-      <clr-dg-cell>{{ data.password }}</clr-dg-cell>
-      <clr-dg-cell>{{ data.role }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.type }}</clr-dg-cell>
+      <clr-dg-cell
+        ><a [href]="data.attachment" target="_blank">view</a></clr-dg-cell
+      >
+      <clr-dg-cell>{{ data.status }}</clr-dg-cell>
+      <clr-dg-cell>{{ data.remarks }}</clr-dg-cell>
       <clr-dg-cell>{{ data.currentDateTime }}</clr-dg-cell>
     </clr-dg-row>
     <clr-dg-footer>

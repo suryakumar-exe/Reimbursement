@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { LocalstorageService } from '../localstorage.service';
+
 import { Location } from '@angular/common';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -11,11 +13,11 @@ const newMetadata = {
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize, Observable } from 'rxjs';
 @Component({
-  selector: 'app-hrmodule',
-  templateUrl: './hrmodule.component.html',
-  styleUrls: ['./hrmodule.component.css'],
+  selector: 'app-employeemodule',
+  templateUrl: './employeemodule.component.html',
+  styleUrls: ['./employeemodule.component.css'],
 })
-export class HRModuleComponent implements OnInit {
+export class EmployeemoduleComponent implements OnInit {
   selected: any = [];
   id_session: any;
   email_session: any;
@@ -26,32 +28,32 @@ export class HRModuleComponent implements OnInit {
   update_emailid: any;
   update_type: any;
   update_attachment: any;
+  my_reimbursements = [] as any;
   update_remarks: any;
   update_status: any;
   update_datetime: any;
   new_updated_remark: any;
-  status: any = 'approved by level 1';
+  status: any = 'Pending';
   reimbursementdatas: any = [];
-  PendingStatus: any = [];
   selectedFile: any;
   today: object = new Date();
   files: any = [];
   public downloadURL: any;
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private localstorage: LocalstorageService,
+    private storage: AngularFireStorage,
+    private location: Location
+  ) {
+    this.reimbursementdata();
+  }
+
   ngOnInit(): void {
     this.email_session = window.sessionStorage.getItem('storage_email');
     this.empid_session = window.sessionStorage.getItem('storage_empid');
     this.role_session = window.sessionStorage.getItem('storage_role');
     this.id_session = window.sessionStorage.getItem('storage_id');
-  }
-  constructor(
-    private storage: AngularFireStorage,
-    private http: HttpClient,
-    private router: Router,
-    private location: Location
-  ) {
-    this.reimbursementdata();
-    // const navigation = this.router.getCurrentNavigation();
-    //console.log(this.router.getCurrentNavigation().extras.state['example']);
   }
   isModalOpen_remarkupdate = false;
   openModal_remarkupdate() {
@@ -61,7 +63,17 @@ export class HRModuleComponent implements OnInit {
   openModal_create() {
     this.isModalOpen_create = true;
   }
-
+  reimbursementdata() {
+    this.http
+      .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
+      .subscribe((res) => {
+        this.my_reimbursements = res;
+        this.my_reimbursements = this.my_reimbursements.filter(
+          (e: { emailId: any }) => e.emailId === this.email_session
+        );
+        console.log(this.my_reimbursements);
+      });
+  }
   create(data: any) {
     // const myTest = this.afs.collection('test').ref.doc();
     // console.log(myTest.id);
@@ -128,27 +140,6 @@ export class HRModuleComponent implements OnInit {
     this.update_datetime = String(pass.map((e) => e.currentDateTime));
     console.log(this.update_id);
   }
-  approve() {
-    this.http
-      .put(
-        'https://localhost:5001/api/Reimbursement/UpdateReimbursementById/' +
-          this.update_id,
-        {
-          id: this.update_id,
-          empId: this.update_empid,
-          emailId: this.update_emailid,
-          type: this.update_type,
-          attachment: this.update_attachment,
-          remarks: this.update_remarks,
-          status: 'Aproved by level 1',
-          currentDateTime: this.today,
-        }
-      )
-      .subscribe((res) => {
-        console.log(res);
-        window.location.reload();
-      });
-  }
   logout() {
     window.sessionStorage.removeItem('storage_email');
     window.sessionStorage.removeItem('storage_empid');
@@ -157,77 +148,8 @@ export class HRModuleComponent implements OnInit {
     console.log('cleared');
     this.router.navigate(['']);
   }
-  reject(data: any) {
-    console.log(data);
-    this.isModalOpen_remarkupdate = false;
-    // this.new_updated_remark = data.map((e: { remarks: any }) => e.remarks);
-    this.new_updated_remark = data.value.remarks;
-    this.http
-      .put(
-        'https://localhost:5001/api/Reimbursement/UpdateReimbursementById/' +
-          this.update_id,
-        {
-          id: this.update_id,
-          empId: this.update_empid,
-          emailId: this.update_emailid,
-          type: this.update_type,
-          attachment: this.update_attachment,
-          remarks: this.new_updated_remark,
-          status: 'Rejected',
-          currentDateTime: this.today,
-        }
-      )
-      .subscribe((res) => {
-        console.log(res);
-        window.location.reload();
-      });
-  }
-  reimbursementdata() {
-    this.http
-      .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
-      .subscribe((res) => {
-        this.reimbursementdatas = res;
-        console.log(this.reimbursementdatas);
-        this.pending();
-      });
-  }
-  pending() {
-    var person = this.reimbursementdatas.filter(
-      (e: any) => e.status === 'Pending'
-    );
-    this.PendingStatus = person;
-  }
   url: any;
   upload(event: any) {
     this.selectedFile = event.target.files[0];
-    // console.log(event.target.files[0].name, 'Called');
-    // for (let index = 0; index < 1; index++) {
-    //   const file = event[index];
-    //   const filePath = `Demo/${new Date().getTime()}_${
-    //     event.target.files[0].name
-    //   }`;
-    //   const fileRef = this.storage.ref(filePath);
-    //   const task: AngularFireUploadTask = this.storage.upload(
-    //     filePath,
-    //     event[index]
-    //   );
-    //   task
-    //     .snapshotChanges()
-    //     .pipe(
-    //       finalize(() => {
-    //         this.downloadURL = fileRef.getDownloadURL();
-    //         this.downloadURL.subscribe((url: any) => {
-    //           if (url) {
-    //             this.url = url;
-
-    //             console.log(url, 'URL');
-    //             this.files.push(file);
-    //           }
-    //         });
-    //       })
-    //     )
-    //     .subscribe();
-
-    // }
   }
 }

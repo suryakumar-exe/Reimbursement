@@ -3,7 +3,7 @@
     <div class="branding">...</div>
     <div class="header-nav">
       <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
-        >Reimbursement Details</a
+        >All Reimbursement Details</a
       >
       <a routerLink="/app-login-creation" class="nav-link nav-text"
         >Login Details</a
@@ -11,11 +11,10 @@
       <a routerLink="/app-own-reimbursement" class="nav-link nav-text"
         >My Reimbursements</a
       >
-      <a routerLink="/app-base-logout" class="nav-link nav-text">Jobs</a>
-
-      <a (click)="logout()" class="nav-link nav-text">Logout</a>
     </div>
     <div class="header-actions">
+      <a class="nav-link nav-text">{{ empid_session }}</a>
+      <a (click)="logout()" class="nav-link nav-text">Logout</a>
       <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
         <clr-icon shape="cog"></clr-icon>
       </a>

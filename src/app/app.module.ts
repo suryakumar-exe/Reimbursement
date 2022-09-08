@@ -14,6 +14,8 @@ import { OwnReimbursementComponent } from './own-reimbursement/own-reimbursement
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from '../environments/environment';
+import { EmployeemoduleComponent } from './employeemodule/employeemodule.component';
+import { ItmoduleComponent } from './itmodule/itmodule.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,8 @@ import { environment } from '../environments/environment';
     LoginCreationComponent,
     BaseLogoutComponent,
     OwnReimbursementComponent,
+    EmployeemoduleComponent,
+    ItmoduleComponent,
   ],
   imports: [
     BrowserModule,
