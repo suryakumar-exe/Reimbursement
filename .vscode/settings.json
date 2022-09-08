@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/6b3f3dc6-86a1-47eb-8ba6-17f9f0570442/microsoft.web/sites/subscriptions/6b3f3dc6-86a1-47eb-8ba6-17f9f0570442/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Reimbursementnordex",
+  "appService.deploySubpath": "dist"
+}
