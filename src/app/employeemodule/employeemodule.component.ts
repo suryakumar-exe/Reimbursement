@@ -12,6 +12,7 @@ const newMetadata = {
 // import { AngularFireStorage } from 'angularfire2/storage';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize, Observable } from 'rxjs';
+import { threadId } from 'worker_threads';
 @Component({
   selector: 'app-employeemodule',
   templateUrl: './employeemodule.component.html',
@@ -36,6 +37,7 @@ export class EmployeemoduleComponent implements OnInit {
   update_remarks: any;
   update_status: any;
   update_datetime: any;
+  logindatas = [] as any;
   new_updated_remark: any;
   status: any = 'Pending';
   reimbursementdatas: any = [];
@@ -67,7 +69,10 @@ export class EmployeemoduleComponent implements OnInit {
   openModal_create() {
     this.isModalOpen_create = true;
   }
-
+  isModalOpen_password = false;
+  passordchange() {
+    this.isModalOpen_password = true;
+  }
   reimbursementdata() {
     this.http
       .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
@@ -78,6 +83,13 @@ export class EmployeemoduleComponent implements OnInit {
         );
         console.log(this.my_reimbursements);
         this.filters();
+      });
+
+    this.http
+      .get('https://localhost:5001/api/LoginDetails/FetchAllLogins')
+      .subscribe((res) => {
+        this.logindatas = res;
+        console.log(this.logindatas);
       });
   }
   filters() {
@@ -92,6 +104,42 @@ export class EmployeemoduleComponent implements OnInit {
     this.pending = this.my_reimbursements.filter(
       (e: any) => e.status === 'Pending'
     ).length;
+  }
+  createpassword(data: any) {
+    console.log(this.empid_session);
+    var ans = this.logindatas.filter(
+      (e: any) => e.empID === this.empid_session
+    );
+    var id = Number(ans.map((e: any) => e.id));
+    var empId = String(ans.map((e: any) => e.empID));
+    var emailid = String(ans.map((e: any) => e.emailId));
+    var password = String(ans.map((e: any) => e.password));
+    var role = String(ans.map((e: any) => e.role));
+    console.log(password);
+    if (password === data.newpassword) {
+      alert('Please Enter New Password');
+    } else if (password === data.oldpassword) {
+      this.http
+        .put('https://localhost:5001/api/LoginDetails/UpdateLogin/' + id, {
+          id: id,
+          empId: empId,
+          emailId: emailid,
+          password: data.newpassword,
+          role: role,
+          currentDateTime: this.today,
+        })
+        .subscribe((res) => {
+          console.log(res);
+          alert('Password Updated');
+          // window.location.reload();
+        });
+    } else {
+      alert('Old Password is Wrong!Contact Admin');
+    }
+
+    console.log(ans);
+    console.log(data);
+    console.log(data.oldpassword);
   }
   create(data: any) {
     // const myTest = this.afs.collection('test').ref.doc();

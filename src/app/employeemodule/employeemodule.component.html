@@ -12,7 +12,11 @@
     <div class="header-actions">
       <a class="nav-link nav-text">{{ empid_session }}</a>
       <a (click)="logout()" class="nav-link nav-text">Logout</a>
-      <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
+      <a
+        (click)="passordchange()"
+        class="nav-link nav-icon"
+        aria-label="settings"
+      >
         <clr-icon shape="cog"></clr-icon>
       </a>
     </div>
@@ -121,6 +125,45 @@
             <clr-input-container>
               <label>REMARKS</label>
               <input clrInput type="text" id="remarks" name="remarks" ngModel />
+            </clr-input-container>
+
+            <br />
+            <button class="btn btn-primary">CREATE</button>
+          </form>
+        </div>
+      </clr-modal>
+      <clr-modal [(clrModalOpen)]="isModalOpen_password">
+        <h3 class="modal-title">CREATE NEW PASSWORD</h3>
+        <div class="modal-body">
+          <form
+            #datas_create_reim1="ngForm"
+            clrForm
+            (ngSubmit)="createpassword(datas_create_reim1.value)"
+          >
+            <span class="clr-sr-only"
+              >Tabbing through form inputs will trigger validation messages to
+              be read aloud.</span
+            >
+            <clr-input-container>
+              <label>OLD PASSWORD</label>
+              <input
+                clrInput
+                type="text"
+                id="oldpassword"
+                name="oldpassword"
+                ngModel
+              />
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>NEW PASSWORD</label>
+              <input
+                clrInput
+                type="text"
+                id="newpassword"
+                name="newpassword"
+                ngModel
+              />
             </clr-input-container>
 
             <br />

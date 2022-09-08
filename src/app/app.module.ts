@@ -16,6 +16,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from '../environments/environment';
 import { EmployeemoduleComponent } from './employeemodule/employeemodule.component';
 import { ItmoduleComponent } from './itmodule/itmodule.component';
+import { NewpasswordComponent } from './newpassword/newpassword.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { ItmoduleComponent } from './itmodule/itmodule.component';
     OwnReimbursementComponent,
     EmployeemoduleComponent,
     ItmoduleComponent,
+    NewpasswordComponent,
   ],
   imports: [
     BrowserModule,
