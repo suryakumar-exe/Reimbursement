@@ -1,6 +1,6 @@
 [build]
-  command = "ng build --prod"
-  publish = "/dist"
+  command = "ng build --configuration development"
+  publish = "/build"
   base ="/"
   
 [[redirects]]
