@@ -76,7 +76,9 @@ export class EmployeemoduleComponent implements OnInit {
 
   reimbursementdata() {
     this.http
-      .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
+      .get(
+        'https://reimbursementbackend.azurewebsites.net/api/Reimbursement/FetchAllReimbursement'
+      )
       .subscribe((res) => {
         this.my_reimbursements = res;
         this.my_reimbursements = this.my_reimbursements.filter(
@@ -87,7 +89,9 @@ export class EmployeemoduleComponent implements OnInit {
       });
 
     this.http
-      .get('https://localhost:5001/api/LoginDetails/FetchAllLogins')
+      .get(
+        'https://reimbursementbackend.azurewebsites.net/api/LoginDetails/FetchAllLogins'
+      )
       .subscribe((res) => {
         this.logindatas = res;
         console.log(this.logindatas);
@@ -122,14 +126,18 @@ export class EmployeemoduleComponent implements OnInit {
       alert('Please Enter New Password');
     } else if (password === data.oldpassword) {
       this.http
-        .put('https://localhost:5001/api/LoginDetails/UpdateLogin/' + id, {
-          id: id,
-          empId: empId,
-          emailId: emailid,
-          password: data.newpassword,
-          role: role,
-          currentDateTime: this.today,
-        })
+        .put(
+          'https://reimbursementbackend.azurewebsites.net/api/LoginDetails/UpdateLogin/' +
+            id,
+          {
+            id: id,
+            empId: empId,
+            emailId: emailid,
+            password: data.newpassword,
+            role: role,
+            currentDateTime: this.today,
+          }
+        )
         .subscribe((res) => {
           console.log(res);
           alert('Password Updated');
@@ -183,16 +191,19 @@ export class EmployeemoduleComponent implements OnInit {
 
   createReim(data: any) {
     this.http
-      .post('https://localhost:5001/api/Reimbursement/CreateReimbursement', {
-        id: 0,
-        empId: this.empid_session,
-        emailId: this.email_session,
-        type: data.type,
-        attachment: this.downloadURL,
-        remarks: data.remarks,
-        status: this.status,
-        currentDateTime: this.today,
-      })
+      .post(
+        'https://reimbursementbackend.azurewebsites.net/api/Reimbursement/CreateReimbursement',
+        {
+          id: 0,
+          empId: this.empid_session,
+          emailId: this.email_session,
+          type: data.type,
+          attachment: this.downloadURL,
+          remarks: data.remarks,
+          status: this.status,
+          currentDateTime: this.today,
+        }
+      )
       .subscribe((data) => {
         console.log(data);
       });

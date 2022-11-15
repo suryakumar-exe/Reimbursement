@@ -34,7 +34,7 @@ export class HRModuleComponent implements OnInit {
   update_status: any;
   update_datetime: any;
   new_updated_remark: any;
-  status: any = 'approved by level 1';
+  status: any = 'Approved by level 1';
   reimbursementdatas: any = [];
   PendingStatus: any = [];
   selectedFile: any;
@@ -106,16 +106,19 @@ export class HRModuleComponent implements OnInit {
 
   createReim(data: any) {
     this.http
-      .post('https://localhost:5001/api/Reimbursement/CreateReimbursement', {
-        id: 0,
-        empId: this.empid_session,
-        emailId: this.email_session,
-        type: data.type,
-        attachment: this.downloadURL,
-        remarks: data.remarks,
-        status: this.status,
-        currentDateTime: this.today,
-      })
+      .post(
+        'https://reimbursementbackend.azurewebsites.net/api/Reimbursement/CreateReimbursement',
+        {
+          id: 0,
+          empId: this.empid_session,
+          emailId: this.email_session,
+          type: data.type,
+          attachment: this.downloadURL,
+          remarks: data.remarks,
+          status: this.status,
+          currentDateTime: this.today,
+        }
+      )
       .subscribe((data) => {
         console.log(data);
       });
@@ -135,7 +138,7 @@ export class HRModuleComponent implements OnInit {
   approve() {
     this.http
       .put(
-        'https://localhost:5001/api/Reimbursement/UpdateReimbursementById/' +
+        'https://reimbursementbackend.azurewebsites.net/api/Reimbursement/UpdateReimbursementById/' +
           this.update_id,
         {
           id: this.update_id,
@@ -168,7 +171,7 @@ export class HRModuleComponent implements OnInit {
     this.new_updated_remark = data.value.remarks;
     this.http
       .put(
-        'https://localhost:5001/api/Reimbursement/UpdateReimbursementById/' +
+        'https://reimbursementbackend.azurewebsites.net/api/Reimbursement/UpdateReimbursementById/' +
           this.update_id,
         {
           id: this.update_id,
@@ -188,7 +191,9 @@ export class HRModuleComponent implements OnInit {
   }
   reimbursementdata() {
     this.http
-      .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
+      .get(
+        'https://reimbursementbackend.azurewebsites.net/api/Reimbursement/FetchAllReimbursement'
+      )
       .subscribe((res) => {
         this.reimbursementdatas = res;
         this.reimbursementdatas = this.reimbursementdatas.reverse();

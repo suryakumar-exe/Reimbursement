@@ -53,14 +53,17 @@ export class LoginCreationComponent implements OnInit {
   create(event: any) {
     console.log(event);
     this.http
-      .post('https://localhost:5001/api/LoginDetails/CreateLogin', {
-        id: 0,
-        empID: event.empID,
-        emailId: event.emailId,
-        password: event.password,
-        role: event.role,
-        currentDateTime: this.today,
-      })
+      .post(
+        'https://reimbursementbackend.azurewebsites.net/api/LoginDetails/CreateLogin',
+        {
+          id: 0,
+          empID: event.empID,
+          emailId: event.emailId,
+          password: event.password,
+          role: event.role,
+          currentDateTime: this.today,
+        }
+      )
       .subscribe((data) => {
         console.log(data);
         window.location.reload();
@@ -68,7 +71,9 @@ export class LoginCreationComponent implements OnInit {
   }
   fetchlogin() {
     this.http
-      .get('https://localhost:5001/api/LoginDetails/FetchAllLogins')
+      .get(
+        'https://reimbursementbackend.azurewebsites.net/api/LoginDetails/FetchAllLogins'
+      )
       .subscribe((res) => {
         this.logindata = res;
         console.log(this.logindata);
@@ -76,14 +81,18 @@ export class LoginCreationComponent implements OnInit {
   }
   editpassword(event: any) {
     this.http
-      .put('https://localhost:5001/api/LoginDetails/UpdateLogin/' + this.uid, {
-        id: this.uid,
-        empID: this.uempid,
-        emailId: this.uemailid,
-        password: event.value.password,
-        role: this.urole,
-        currentDateTime: this.today,
-      })
+      .put(
+        'https://reimbursementbackend.azurewebsites.net/api/LoginDetails/UpdateLogin/' +
+          this.uid,
+        {
+          id: this.uid,
+          empID: this.uempid,
+          emailId: this.uemailid,
+          password: event.value.password,
+          role: this.urole,
+          currentDateTime: this.today,
+        }
+      )
       .subscribe((data) => {
         console.log(data);
         window.location.reload();

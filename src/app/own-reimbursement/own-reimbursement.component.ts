@@ -29,7 +29,9 @@ export class OwnReimbursementComponent implements OnInit {
   }
   reimbursementdata() {
     this.http
-      .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
+      .get(
+        'https://reimbursementbackend.azurewebsites.net/api/Reimbursement/FetchAllReimbursement'
+      )
       .subscribe((res) => {
         this.my_reimbursements = res;
         this.my_reimbursements = this.my_reimbursements.filter(
