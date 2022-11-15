@@ -73,6 +73,7 @@ export class EmployeemoduleComponent implements OnInit {
   passordchange() {
     this.isModalOpen_password = true;
   }
+
   reimbursementdata() {
     this.http
       .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
@@ -92,6 +93,7 @@ export class EmployeemoduleComponent implements OnInit {
         console.log(this.logindatas);
       });
   }
+
   filters() {
     this.total = this.my_reimbursements.length;
     this.approvedlevel1 = this.my_reimbursements.filter(

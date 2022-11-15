@@ -191,6 +191,7 @@ export class HRModuleComponent implements OnInit {
       .get('https://localhost:5001/api/Reimbursement/FetchAllReimbursement')
       .subscribe((res) => {
         this.reimbursementdatas = res;
+        this.reimbursementdatas = this.reimbursementdatas.reverse();
         console.log(this.reimbursementdatas);
         this.filters();
         // this.pending();

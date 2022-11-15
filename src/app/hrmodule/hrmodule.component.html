@@ -2,19 +2,25 @@
   <header class="header-6">
     <div class="branding">...</div>
     <div class="header-nav">
-      <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
+      <a
+        routerLink="/app-hrmodulecomponent"
+        routerLinkActive="active-link"
+        class="active nav-link nav-text"
         >All Reimbursement Details</a
       >
-      <a routerLink="/app-login-creation" class="nav-link nav-text"
+      <a
+        routerLink="/app-login-creation"
+        routerLinkActive="active-link"
+        class="nav-link nav-text"
         >Login Details</a
       >
       <a
         routerLink="/app-own-reimbursement"
+        routerLinkActive="active-link"
         style="text-align: right"
         class="nav-link nav-text"
         >My Reimbursements</a
       >
-      <a routerLink="/app-base-logout" class="nav-link nav-text">Jobs</a>
     </div>
     <div class="header-actions">
       <a class="nav-link nav-text">{{ empid_session }}</a>
@@ -183,7 +189,20 @@
       <clr-dg-cell
         ><a [href]="data.attachment" target="_blank">view</a></clr-dg-cell
       >
-      <clr-dg-cell>{{ data.status }}</clr-dg-cell>
+      <clr-dg-cell
+        [style.color]="
+          data.status == 'Pending'
+            ? 'orange'
+            : data.status == 'Approved'
+            ? 'green'
+            : data.status == 'Rejected'
+            ? 'red'
+            : data.status == 'approved by level 1'
+            ? 'blue'
+            : 'black'
+        "
+        ><b>{{ data.status }}</b></clr-dg-cell
+      >
       <clr-dg-cell>{{ data.remarks }}</clr-dg-cell>
       <clr-dg-cell>{{ data.currentDateTime }}</clr-dg-cell>
     </clr-dg-row>

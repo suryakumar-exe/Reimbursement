@@ -5,7 +5,7 @@
       <a
         routerLink="/app-employeemodule"
         style="text-align: right"
-        class="nav-link nav-text"
+        class="active nav-link nav-text"
         >My Reimbursements</a
       >
     </div>
@@ -187,7 +187,20 @@
       <clr-dg-cell
         ><a [href]="data.attachment" target="_blank">view</a></clr-dg-cell
       >
-      <clr-dg-cell>{{ data.status }}</clr-dg-cell>
+      <clr-dg-cell
+        [style.color]="
+          data.status == 'Pending'
+            ? 'orange'
+            : data.status == 'Approved'
+            ? 'green'
+            : data.status == 'Rejected'
+            ? 'red'
+            : data.status == 'approved by level 1'
+            ? 'blue'
+            : 'black'
+        "
+        ><b>{{ data.status }}</b></clr-dg-cell
+      >
       <clr-dg-cell>{{ data.remarks }}</clr-dg-cell>
       <clr-dg-cell>{{ data.currentDateTime }}</clr-dg-cell>
     </clr-dg-row>

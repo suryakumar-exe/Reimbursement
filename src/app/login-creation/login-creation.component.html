@@ -2,10 +2,10 @@
   <header class="header-6">
     <div class="branding">...</div>
     <div class="header-nav">
-      <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
+      <a routerLink="/app-hrmodulecomponent" class="nav-link nav-text"
         >All Reimbursement Details</a
       >
-      <a routerLink="/app-login-creation" class="nav-link nav-text"
+      <a routerLink="/app-login-creation" class="active nav-link nav-text"
         >Login Details</a
       >
       <a routerLink="/app-own-reimbursement" class="nav-link nav-text"
@@ -37,7 +37,7 @@
         </button>
       </div>
       <clr-modal [(clrModalOpen)]="isModalOpen_remarkupdate">
-        <h3 class="modal-title">REJECT REIMBURSEMENT</h3>
+        <h3 class="modal-title">NEW PASSWORD</h3>
         <div class="modal-body">
           <form
             #datas_create="ngForm"
@@ -60,7 +60,7 @@
             </clr-input-container>
 
             <br />
-            <button class="btn btn-primary">REJECT</button>
+            <button class="btn btn-primary">CHANGE</button>
           </form>
         </div>
       </clr-modal>

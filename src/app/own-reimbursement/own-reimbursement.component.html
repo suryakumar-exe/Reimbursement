@@ -2,13 +2,13 @@
   <header class="header-6">
     <div class="branding">...</div>
     <div class="header-nav">
-      <a routerLink="/app-hrmodulecomponent" class="active nav-link nav-text"
+      <a routerLink="/app-hrmodulecomponent" class="nav-link nav-text"
         >All Reimbursement Details</a
       >
       <a routerLink="/app-login-creation" class="nav-link nav-text"
         >Login Details</a
       >
-      <a routerLink="/app-own-reimbursement" class="nav-link nav-text"
+      <a routerLink="/app-own-reimbursement" class="active nav-link nav-text"
         >My Reimbursements</a
       >
     </div>
@@ -75,7 +75,20 @@
       <clr-dg-cell>{{ data.emailId }} </clr-dg-cell>
       <clr-dg-cell>{{ data.type }}</clr-dg-cell>
       <clr-dg-cell>{{ data.attachment }}</clr-dg-cell>
-      <clr-dg-cell>{{ data.status }}</clr-dg-cell>
+      <clr-dg-cell
+        [style.color]="
+          data.status == 'Pending'
+            ? 'orange'
+            : data.status == 'Approved'
+            ? 'green'
+            : data.status == 'Rejected'
+            ? 'red'
+            : data.status == 'approved by level 1'
+            ? 'blue'
+            : 'black'
+        "
+        ><b>{{ data.status }}</b></clr-dg-cell
+      >
       <clr-dg-cell>{{ data.remarks }}</clr-dg-cell>
       <clr-dg-cell>{{ data.currentDateTime }}</clr-dg-cell>
     </clr-dg-row>
