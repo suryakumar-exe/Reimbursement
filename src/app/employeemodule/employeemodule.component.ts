@@ -206,6 +206,8 @@ export class EmployeemoduleComponent implements OnInit {
       )
       .subscribe((data) => {
         console.log(data);
+        this.isModalOpen_create = false;
+        this.reimbursementdata();
       });
   }
   selectionChanged(pass: any[]) {

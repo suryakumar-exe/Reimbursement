@@ -121,6 +121,8 @@ export class HRModuleComponent implements OnInit {
       )
       .subscribe((data) => {
         console.log(data);
+        this.isModalOpen_create = false;
+        this.reimbursementdata();
       });
   }
   selectionChanged(pass: any[]) {
@@ -147,13 +149,13 @@ export class HRModuleComponent implements OnInit {
           type: this.update_type,
           attachment: this.update_attachment,
           remarks: this.update_remarks,
-          status: 'Aproved by level 1',
+          status: 'Approved by level 1',
           currentDateTime: this.today,
         }
       )
       .subscribe((res) => {
         console.log(res);
-        window.location.reload();
+        this.reimbursementdata();
       });
   }
   logout() {
@@ -186,7 +188,7 @@ export class HRModuleComponent implements OnInit {
       )
       .subscribe((res) => {
         console.log(res);
-        window.location.reload();
+        this.reimbursementdata();
       });
   }
   reimbursementdata() {

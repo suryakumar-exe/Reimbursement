@@ -66,7 +66,9 @@ export class LoginCreationComponent implements OnInit {
       )
       .subscribe((data) => {
         console.log(data);
-        window.location.reload();
+        this.isModalOpen_create = false;
+        // window.location.reload();
+        this.fetchlogin();
       });
   }
   fetchlogin() {
